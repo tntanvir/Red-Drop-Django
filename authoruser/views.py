@@ -33,7 +33,7 @@ class RegisterView(APIView):
             user=serializer.save()
             token=default_token_generator.make_token(user)
             uid=urlsafe_base64_encode(force_bytes(user.pk))
-            confirm_link=f'http://127.0.0.1:8000/authore/active/{uid}/{token}/'
+            confirm_link=f'https://red-drop-django.vercel.app/authore/active/{uid}/{token}/'
 
             email_subject ='Confirm Your Account'
             email_body=render_to_string('confirm_email.html',{'confirm_link':confirm_link})
@@ -53,9 +53,9 @@ def activate(request,uid64,token):
     if user is not None and default_token_generator.check_token(user,token):
         user.is_active=True
         user.save()
-        return redirect('login')
+        return redirect('https://red-drop-4d803.web.app/')
     else:
-        return redirect('login')
+        return redirect('https://red-drop-4d803.web.app/singup')
     
 class UserLoginView(APIView):
     def post(self, request):
